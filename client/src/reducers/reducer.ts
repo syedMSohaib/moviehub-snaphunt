@@ -26,6 +26,10 @@ const reducer = (state: IAppState = defaultState, action: IAction): IAppState =>
   const dispatchFail = (): void => {
     store.dispatch(MovieActionCreators.testApiFail());
   };
+  
+  console.log(action);
+
+  
 
   switch (action.type) {
 
@@ -39,7 +43,7 @@ const reducer = (state: IAppState = defaultState, action: IAction): IAppState =>
       };
 
     case ActionType.FetchMovies:
-        ApiService.fetchMovies().then(dispatchFinish).catch(dispatchFail);
+        ApiService.fetchMovies(action.payload.page_no || 1, action.payload.text || '').then(dispatchFinish).catch(dispatchFail);
         return {
           ...state,
           message: null,

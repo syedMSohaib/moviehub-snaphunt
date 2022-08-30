@@ -1,1 +1,14 @@
+.pagination {
+    justify-content: center;
+}
 
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #48927e;
+    border-color: #48927e;
+}
+
+.page-link {
+    color: black
+}

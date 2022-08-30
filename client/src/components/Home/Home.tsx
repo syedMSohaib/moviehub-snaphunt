@@ -9,7 +9,20 @@ export interface HomeProps {
 }
 
 export default function Home(props: HomeProps): JSX.Element {
-  return (
+
+    if(!props.movies) return (
+        <>
+            <section className="site-spacing">
+                <div className="container">
+                  <div className="col-12 text-center">
+                      No movies found
+                  </div>
+              </div>
+          </section>
+        </>
+      )
+
+    return (
     <>
         <Banner />
 
@@ -17,7 +30,7 @@ export default function Home(props: HomeProps): JSX.Element {
             <div className="container">
                 <div className="row">
                     {
-                        props.movies ? props.movies.map((item, _) => <MovieCard item={item} key={_}/> ) : "No top movies found"
+                        props && props.movies ? props.movies.map((item, _) => <MovieCard item={item} key={_}/> ) : "No top movies found"
                     }
                 </div>
                 <div className="row mt-4">

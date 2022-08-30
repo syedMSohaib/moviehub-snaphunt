@@ -1,6 +1,21 @@
 import { ActionType } from '../enumerations/action-type';
 import { IAction } from '../interfaces/action.interface';
 
+
+const getURLParameter = (name: string, location:string, second = false): string => {
+  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')
+  const regex = new RegExp('[\\?&]' + name + '=([^&#]*)')
+  const results = regex.exec(location)
+  if (second && results === null) {
+    return getURLParameter(second, location)
+  }
+  return results === null
+    ? ''
+    : decodeURIComponent(results[1].replace(/\+/g, ' ')).replace(/\+/g, ' ')
+}
+
+
+
 export class MovieActionCreators {
 
   public static fetchTopMovies(): IAction {
@@ -11,9 +26,16 @@ export class MovieActionCreators {
   }
 
   public static fetchMovies(): IAction {
+
+    const page_no = getURLParameter('page', window.location.href) || 1
+
+    console.log('page_no', page_no);
+
     return {
       type: ActionType.FetchMovies,
-      payload: null
+      payload: {
+        page_no: page_no,
+      }
     };
   }
 
