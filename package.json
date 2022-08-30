@@ -1,0 +1,26 @@
+{
+  "name": "moviehub-snaphunt",
+  "version": "1.0.0",
+  "description": "moviehub app based on react SPA and NodeJS backend as technical assessment given by Snaphunt ",
+  "scripts": {
+    "migrate": "knex migrate:latest --knexfile ./server/knexfile.js",
+    "seed": "knex seed:run --knexfile ./server/knexfile.js",
+    "validate": "node ./tools/validation.js",
+    "install": "npm run client:install && npm run server:install",
+    "client:install": "cd client && npm install",
+    "server:install": "cd server && npm install",
+    "server": "cd server && npm run prod",
+    "build": "npm run client:build && npm run server:build",
+    "client:build": "cd client && npm run build",
+    "server:build": "cd server && npm run build",
+    "start": "npm run build && npm run server",
+    "server:dev": "cd server && npm run dev",
+    "client:dev": "cd client && npm run dev"
+  },
+  "keywords": [
+    "node",
+    "typescript"
+  ],
+  "author": "sohaib",
+  "license": "ISC"
+}
