@@ -68,16 +68,25 @@ p.movie-description {
   color: #575757;
 }
 
-button.grey-button {
-  background: #E5E5E5;
-  border-radius: 5px;
-  width: 286px;
-  height: 70px;
+p.movie-short-description {
   font-weight: 400;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 132.5%;
   color: #575757;
-  border: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+.grey-button {
+  font-size: 20px;
+  background: #E5E5E5;
+  padding: 10px 40px 10px 40px;
+  border: none;
+  color: black;
+  width: 200px;
 }
 
 .center-button {

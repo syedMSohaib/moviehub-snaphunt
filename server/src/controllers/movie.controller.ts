@@ -52,7 +52,7 @@ export class MovieController {
       from: '',
       data: '',
     };
-    let per_page = reqData.per_page || 10;
+    let per_page = reqData.per_page || 9;
     let page: number = req.query.text ? 1 : (reqData.current_page || 1);
     if (page < 1) page = 1;
     let offset = (page - 1) * per_page;

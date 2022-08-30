@@ -1,8 +1,14 @@
 import React from 'react';
 import './Home.css';
 import Banner from "../Banner/Banner";
+import MovieCard from '../MovieCard/MovieCard';
+import { Link } from 'react-router-dom';
 
-export default function Home(): JSX.Element {
+export interface HomeProps {
+    movies: Array<Object>;
+}
+
+export default function Home(props: HomeProps): JSX.Element {
   return (
     <>
         <Banner />
@@ -10,71 +16,13 @@ export default function Home(): JSX.Element {
         <section className="site-spacing">
             <div className="container">
                 <div className="row">
-                    <div className="col-lg-4 col-md-6 col-12">
-                        <div className="movie-card">
-                            <img src="images/placeholder.jpeg" className="movieImage img-fluid" alt="">
-                            <a href="#" className="movieTitleLink">
-                                <h4 className="movie-title">Movie Title</h4>
-                            </a>
-                            <p className="movie-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum
-                                dolor sit amet, consectetur adipiscing elit........</p>
-                        </div>
-                    </div>
-                    <div className="col-lg-4 col-md-6 col-12">
-                        <div className="movie-card">
-                            <img src="images/placeholder.jpeg" className="movieImage img-fluid" alt="">
-                            <a href="#" className="movieTitleLink">
-                                <h4 className="movie-title">Movie Title</h4>
-                            </a>
-                            <p className="movie-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum
-                                dolor sit amet, consectetur adipiscing elit........</p>
-                        </div>
-                    </div>
-                    <div className="col-lg-4 col-md-6 col-12">
-                        <div className="movie-card">
-                            <img src="images/placeholder.jpeg" className="movieImage img-fluid" alt="">
-                            <a href="#" className="movieTitleLink">
-                                <h4 className="movie-title">Movie Title</h4>
-                            </a>
-                            <p className="movie-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum
-                                dolor sit amet, consectetur adipiscing elit........</p>
-                        </div>
-                    </div>
-                    <div className="col-lg-4 col-md-6 col-12">
-                        <div className="movie-card">
-                            <img src="images/placeholder.jpeg" className="movieImage img-fluid" alt="">
-                            <a href="#" className="movieTitleLink">
-                                <h4 className="movie-title">Movie Title</h4>
-                            </a>
-                            <p className="movie-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum
-                                dolor sit amet, consectetur adipiscing elit........</p>
-                        </div>
-                    </div>
-                    <div className="col-lg-4 col-md-6 col-12">
-                        <div className="movie-card">
-                            <img src="images/placeholder.jpeg" className="movieImage img-fluid" alt="">
-                            <a href="#" className="movieTitleLink">
-                                <h4 className="movie-title">Movie Title</h4>
-                            </a>
-                            <p className="movie-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum
-                                dolor sit amet, consectetur adipiscing elit........</p>
-                        </div>
-                    </div>
-                    <div className="col-lg-4 col-md-6 col-12">
-                        <div className="movie-card">
-                            <img src="images/placeholder.jpeg" className="movieImage img-fluid" alt="">
-                            <a href="#" className="movieTitleLink">
-                                <h4 className="movie-title">Movie Title</h4>
-                            </a>
-                            <p className="movie-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum
-                                dolor sit amet, consectetur adipiscing elit........</p>
-                        </div>
-                    </div>
-
+                    {
+                        props.movies ? props.movies.map((item, _) => <MovieCard item={item} key={_}/> ) : "No top movies found"
+                    }
                 </div>
                 <div className="row mt-4">
-                    <div className="col-12">
-                        <button type="button" className="grey-button center-button">View All</button>
+                    <div className="col-12 text-center">
+                        <Link type="button" to="movies" className="grey-button">View All</Link>
                     </div>
                 </div>
             </div>

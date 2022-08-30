@@ -4,7 +4,7 @@ import { ActionCreator, ActionCreatorsMapObject, bindActionCreators } from 'redu
 import { Routes, Route } from "react-router-dom"
 import { IAction } from '../interfaces/action.interface';
 import { IAppState } from '../reducers/reducer';
-import { TestActionCreators } from '../utilities/test-action.creators';
+import { MovieActionCreators } from '../utilities/movie-action.creators';
 import Header from './Header/Header';
 import './Main.css';
 import Home from './Home/Home';
@@ -14,40 +14,46 @@ import MovieDetail from './MovieDetail/MovieDetail';
 interface IMainProps {
   isLoading: boolean;
   message: string;
-  dispatchApiTestStart?: ActionCreator<IAction>;
+  data?: any,
+  dispatchFetchTopMovies?: ActionCreator<IAction>;
 }
 
 class Main extends Component<IMainProps> {
 
-  public onPingClick = () => {
-    this.props.dispatchApiTestStart();
+  constructor(props: any) {
+    super(props)
+    this.state = {
+      movies: [],
+    }
   }
 
+  componentDidMount(): void {
+    this.props.dispatchFetchTopMovies();
+  }
+
+  // public onPingClick = () => {
+  //   this.props.dispatchFetchTopMovies();
+  // }
+
   public render(): JSX.Element {
+
     return (
       <div className="app-container">
         <Header />
-        <div className="header">
-          <div className="header-row">
-            <div>
-              <h1>ts-node-template <span>by Kovaja</span></h1>
-            </div>
-          </div>
-        </div>
 
         <Routes>
-          <Route path="/" element={ <Home/> } />
+          <Route path="/" element={ <Home movies={this.props.data}  /> } />
           <Route path="movies" element={ <Listing/> } />
           <Route path="movies/:id" element={ <MovieDetail/> } />
         </Routes>
 
-        <div className="content">
+        {/* <div className="content">
           <div style={{ textAlign: 'center' }}>
             <button className="pure-button" type="button" onClick={this.onPingClick}>PING</button>
             <p>{this.props.isLoading ? 'LOADING...' : null}</p>
             <p>{this.props.message}</p>
           </div>
-        </div>
+        </div> */}
 
         <footer>
           <div className="container-fluid">
@@ -100,14 +106,15 @@ class Main extends Component<IMainProps> {
 const mapStateToProps: MapStateToProps<IMainProps, any, IAppState> = (state: IAppState): IMainProps => {
   return {
     isLoading: state.isLoading,
-    message: state.testMessage
+    message: state.message,
+    data: state.data,
   };
 };
 
 const mapDispatchToProps = (dispatch: any): ActionCreatorsMapObject<IAction> => {
   return bindActionCreators<IAction, ActionCreatorsMapObject<IAction>>(
     {
-      dispatchApiTestStart: TestActionCreators.testApiStart
+      dispatchFetchTopMovies: MovieActionCreators.fetchTopMovies
     },
     dispatch
   );

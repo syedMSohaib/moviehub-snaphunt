@@ -1,44 +1,66 @@
+import { MovieActionCreators } from './../utilities/movie-action.creators';
 import { ActionType } from '../enumerations/action-type';
 import { IAction } from '../interfaces/action.interface';
-import TestService from '../services/test.service';
+import ApiService from '../services/api.service';
 import { store } from '../store';
-import { TestActionCreators } from '../utilities/test-action.creators';
 
 export interface IAppState {
   isLoading: boolean;
-  testMessage: string;
+  message: string;
+  data: any,
 }
 
 const defaultState: IAppState = {
   isLoading: false,
-  testMessage: null
+  message: null,
+  data: null,
 };
 
 const reducer = (state: IAppState = defaultState, action: IAction): IAppState => {
 
   // TODO: this is naive handling of async action
   const dispatchFinish = (message: string): void => {
-    store.dispatch(TestActionCreators.testApiFinish(message));
+    store.dispatch(MovieActionCreators.testApiFinish(message));
   };
 
   const dispatchFail = (): void => {
-    store.dispatch(TestActionCreators.testApiFail());
+    store.dispatch(MovieActionCreators.testApiFail());
   };
 
   switch (action.type) {
+
+    case ActionType.FetchTopMovies:
+      ApiService.fetchTopMovies().then(dispatchFinish).catch(dispatchFail);
+      return {
+        ...state,
+        message: null,
+        data: null,
+        isLoading: true
+      };
+
+    case ActionType.FetchMovies:
+        ApiService.fetchMovies().then(dispatchFinish).catch(dispatchFail);
+        return {
+          ...state,
+          message: null,
+          data: null,
+          isLoading: true
+      };
+
     case ActionType.ApiTestStart:
-      TestService.testApi().then(dispatchFinish).catch(dispatchFail);
+      ApiService.testApi().then(dispatchFinish).catch(dispatchFail);
 
       return {
         ...state,
-        testMessage: null,
+        message: null,
         isLoading: true
       };
 
     case ActionType.ApiTestFinish:
       return {
         ...state,
-        testMessage: action.payload,
+        message: action.payload.message,
+        data: action.payload.data,
         isLoading: false
       };
 
@@ -46,7 +68,7 @@ const reducer = (state: IAppState = defaultState, action: IAction): IAppState =>
 
       return {
         ...state,
-        testMessage: null,
+        message: null,
         isLoading: false
       };
 
