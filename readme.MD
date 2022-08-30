@@ -43,3 +43,10 @@ npm run client:dev
 
 
 ### view the demo video at this url https://streamable.com/daguwa
+
+
+![screencapture-localhost-3000-movies-202-2022-08-30-16_40_08-min](https://user-images.githubusercontent.com/33151569/187427967-6a0fba71-355f-4e4e-8059-d87d5c46b502.png)
+
+![screencapture-localhost-3000-movies-2022-08-30-16_39_53-min](https://user-images.githubusercontent.com/33151569/187427983-166e9328-01ff-4a82-844c-66874bd104b9.png)
+
+![screencapture-localhost-3000-2022-08-30-16_39_30-min](https://user-images.githubusercontent.com/33151569/187428008-15a92f3f-85e2-4e1f-9b05-188c024fc5fd.png)
