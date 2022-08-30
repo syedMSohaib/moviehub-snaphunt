@@ -40,7 +40,6 @@ class Listing extends Component<ListingProps> {
 }
 
   handlePageClick(selected: any): void {
-    // console.log(selected);
     this.setState({
       currentPage: selected.selected,
     });
@@ -49,11 +48,7 @@ class Listing extends Component<ListingProps> {
     setTimeout(() => {
       this.props.dispatchFetchMovies();
     }, 1000)
-    // this.setState({
-    //   currentPage: ++selected.selected
-    // }, () => {
-    //   this.props.dispatchFetchMovies( ++selected.selected);
-    // })
+
   }
 
   public render(): JSX.Element {

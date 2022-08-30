@@ -19,9 +19,7 @@ export default function Header(props: HeaderProps): JSX.Element {
         text: StringParam,
     });
     const inputsearch = useRef();
-    // const [search, setSearch] = useSearchParams();
 
-    // const navigate = useNavigate()
 
     const debounceFunction = (fn: any, d: string|number) => {
         let timer: any;
@@ -51,7 +49,8 @@ export default function Header(props: HeaderProps): JSX.Element {
         console.log('searchText', tosearch);
 
         props.inputSearch(tosearch);
-        // console.log();
+
+        //this will send the search text to parent component
 
     }
 

@@ -55,7 +55,7 @@ class Main extends Component<IMainProps> {
   }
 
   public render(): JSX.Element {
-
+    
     return (
       <div className="app-container">
           <Header inputSearch={this.inputSearch}  />
@@ -65,14 +65,6 @@ class Main extends Component<IMainProps> {
             <Route path="movies" element={ <Listing text={this.state.text} /> } />
             <Route path="movies/:id" element={ <MovieDetail  genres={this.state.genres || []} /> } />
           </Routes>
-
-          {/* <div className="content">
-            <div style={{ textAlign: 'center' }}>
-              <button className="pure-button" type="button" onClick={this.onPingClick}>PING</button>
-              <p>{this.props.isLoading ? 'LOADING...' : null}</p>
-              <p>{this.props.message}</p>
-            </div>
-          </div> */}
 
         <footer>
           <div className="container-fluid">
