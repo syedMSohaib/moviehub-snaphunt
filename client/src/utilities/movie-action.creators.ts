@@ -28,11 +28,13 @@ export class MovieActionCreators {
   public static fetchMovies(): IAction {
 
     const page_no = getURLParameter('page', window.location.href) || 1
+    const text = getURLParameter('text', window.location.href) || ''
 
     return {
       type: ActionType.FetchMovies,
       payload: {
         page_no: page_no,
+        text: text
       }
     };
   }

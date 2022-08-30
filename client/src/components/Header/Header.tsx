@@ -1,9 +1,27 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useRef,  useCallback } from 'react'
+// import { useNavigate, useSearchParams } from "react-router-dom"
 import './Header.css';
+import {
+    useQueryParams,
+    StringParam,
+  } from 'use-query-params';
 
-export default function Header(): JSX.Element {
+
+interface HeaderProps {
+    inputSearch?: any,
+}
+
+export default function Header(props: HeaderProps): JSX.Element {
 
     const [searchText, setsearchText] = useState("")
+    const [tosearch, setToSearch] = useState("");
+    const [search, setSearch] = useQueryParams({
+        text: StringParam,
+    });
+    const inputsearch = useRef();
+    // const [search, setSearch] = useSearchParams();
+
+    // const navigate = useNavigate()
 
     const debounceFunction = (fn: any, d: string|number) => {
         let timer: any;
@@ -26,11 +44,25 @@ export default function Header(): JSX.Element {
 
     const filterMovie = (value: string|number) => {
 
-        let tosearch = searchText ? searchText : value;
+        const tosearch = searchText ? searchText : value;
 
-        console.log(searchText, value);
+        setSearch({ text: tosearch }, 'push');
 
-        //now send it to parent component so that filter can be done
+        console.log('searchText', tosearch);
+
+        props.inputSearch(tosearch);
+        // console.log();
+
+    }
+
+    useEffect(() => {
+        inputsearch.current.value = search.text || '';
+        // console.log(, search.text);
+    }, [])
+
+    const handleClearSearch = (): void => {
+        setSearch({ text: '' }, 'push');
+        inputsearch.current.value = '';
     }
 
     return (
@@ -44,9 +76,11 @@ export default function Header(): JSX.Element {
                         </a>
                         <div className="searchbox">
                             <input type="text"
+                            ref={inputsearch}
                             name="search" id="nav_search" placeholder="Search title"
                             onKeyUp={(e) => searchMovies(e.target.value) } />
 
+                            <button className="cancel" onClick={handleClearSearch}>x</button>
                         </div>
                     </nav>
                 </div>

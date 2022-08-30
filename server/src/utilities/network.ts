@@ -2,7 +2,7 @@ import { isProduction } from './commons';
 
 const HOSTS = {
   local: 'localhost',
-  heroku: 'kovaja-web.herokuapp.com'
+  prod: 'sohaib.herokuapp.com'
 };
 
 export function getPort(): string {
@@ -10,7 +10,7 @@ export function getPort(): string {
 }
 
 export function getHost(): string {
-  return isProduction() ? HOSTS.heroku : `${HOSTS.local}:${getPort()}`;
+  return isProduction() ? HOSTS.prod : `${HOSTS.local}:${getPort()}`;
 }
 
 export function getProtocol(): string {

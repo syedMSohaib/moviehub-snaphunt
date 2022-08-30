@@ -7,12 +7,16 @@ import './common-styles/paddings-margins.css';
 import Main from './components/Main';
 import { store } from './store';
 import { BrowserRouter } from "react-router-dom";
+import { QueryParamProvider } from 'use-query-params';
+import { ReactRouter6Adapter } from 'use-query-params/adapters/react-router-6';
 
 ReactDOM.render(
   (
     <Provider store={store}>
       <BrowserRouter>
-        <Main />
+        <QueryParamProvider adapter={ReactRouter6Adapter}>
+          <Main />
+        </QueryParamProvider>
       </BrowserRouter>
     </Provider>
   ),

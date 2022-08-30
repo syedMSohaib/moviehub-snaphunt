@@ -28,8 +28,10 @@ class Main extends Component<IMainProps> {
     this.state = {
       movies: [],
       genres: [],
+      text: '',
     }
     this.fetchGenre = this.fetchGenre.bind(this);
+    this.inputSearch = this.inputSearch.bind(this);
   }
 
   componentDidMount(): void {
@@ -46,15 +48,21 @@ class Main extends Component<IMainProps> {
     })
   }
 
+  inputSearch(data: any) {
+    this.setState({
+      text: data,
+    })
+  }
+
   public render(): JSX.Element {
 
     return (
       <div className="app-container">
-        <Header />
+          <Header inputSearch={this.inputSearch}  />
 
           <Routes>
             <Route path="/" element={ <Home dispatchFetchTopMovies={this.props.dispatchFetchTopMovies} movies={this.props.top || []}  /> } />
-            <Route path="movies" element={ <Listing/> } />
+            <Route path="movies" element={ <Listing text={this.state.text} /> } />
             <Route path="movies/:id" element={ <MovieDetail  genres={this.state.genres || []} /> } />
           </Routes>
 

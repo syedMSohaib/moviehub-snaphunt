@@ -13,6 +13,7 @@ interface ListingProps {
   isLoading: boolean;
   message: string;
   data?: any,
+  text?: string,
   dispatchFetchMovies?: ActionCreator<IAction>;
 }
 
@@ -30,6 +31,13 @@ class Listing extends Component<ListingProps> {
   componentDidMount(): void {
     this.props.dispatchFetchMovies();
   }
+
+  componentDidUpdate(prevProps: any, prevState: any) {
+    if (prevProps.text !== this.props.text) {
+      console.log('componentDidUpdate', prevProps.text, this.props.text)
+      this.props.dispatchFetchMovies();
+    }
+}
 
   handlePageClick(selected: any): void {
     // console.log(selected);
