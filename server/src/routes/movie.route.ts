@@ -18,6 +18,8 @@ export class MovieRoute {
 
     subRouter.get('/top', this.fetchTopMovies.bind(this));
 
+    subRouter.get('/detail/:id', this.fetchMovieDetail.bind(this));
+
 
   }
 
@@ -39,7 +41,10 @@ export class MovieRoute {
       .catch(handleApiError(res));
   }
 
-
-
+  private fetchMovieDetail(req: Request, res: Response): void {
+    this.controller.show(req)
+      .then(handleApiResponse(res))
+      .catch(handleApiError(res));
+  }
 
 }

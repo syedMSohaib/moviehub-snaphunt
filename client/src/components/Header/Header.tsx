@@ -1,7 +1,5 @@
 import React from 'react';
 import './Header.css';
-import { Link } from "react-router-dom";
-
 
 export default function Header(): JSX.Element {
   return (
@@ -10,9 +8,9 @@ export default function Header(): JSX.Element {
             <div className="row no-gutters justify-content-center">
                 <div className="col-xl-11">
                     <nav className="navbar navbar-light justify-content-between">
-                        <Link className="navbar-brand" to="/">
+                        <a className="navbar-brand" href="/">
                             <img src="/images/logo.png" alt="logo" className="navbarBrand" />
-                        </Link>
+                        </a>
                         <div className="searchbox">
                             <input type="text" name="search" id="nav_search" placeholder="Search title" />
                         </div>

@@ -29,8 +29,6 @@ export class MovieActionCreators {
 
     const page_no = getURLParameter('page', window.location.href) || 1
 
-    console.log('page_no', page_no);
-
     return {
       type: ActionType.FetchMovies,
       payload: {
@@ -49,7 +47,9 @@ export class MovieActionCreators {
   public static fetchMovie(): IAction {
     return {
       type: ActionType.FetchMovie,
-      payload: null
+      payload: {
+        id: arguments[0]
+      }
     };
   }
 

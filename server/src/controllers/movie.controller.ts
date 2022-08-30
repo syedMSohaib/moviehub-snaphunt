@@ -36,8 +36,6 @@ export class MovieController {
     return Promise.resolve(response);
   }
 
-
-
   public async index(req: any): Promise<ITestResponse> {
 
     let reqData = req.query;
@@ -88,4 +86,16 @@ export class MovieController {
     return Promise.resolve(response);
   }
 
+  public async show(req: any): Promise<ITestResponse> {
+    let reqData = req.params;
+
+    let data = await instance("movies").where('id', reqData.id).first();
+
+    const response: ITestResponse = {
+      message: 'success',
+      data: data
+    };
+
+    return Promise.resolve(response);
+  }
 }

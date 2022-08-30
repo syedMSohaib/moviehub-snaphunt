@@ -10,11 +10,14 @@ import './Main.css';
 import Home from './Home/Home';
 import Listing from './Listing/Listing';
 import MovieDetail from './MovieDetail/MovieDetail';
+import ApiService from '../services/api.service';
+import { withRouter } from "../utilities/withRouter";
 
 interface IMainProps {
   isLoading: boolean;
   message: string;
   data?: any,
+  top?: any,
   dispatchFetchTopMovies?: ActionCreator<IAction>;
 }
 
@@ -24,16 +27,24 @@ class Main extends Component<IMainProps> {
     super(props)
     this.state = {
       movies: [],
+      genres: [],
     }
+    this.fetchGenre = this.fetchGenre.bind(this);
   }
 
   componentDidMount(): void {
-    this.props.dispatchFetchTopMovies();
+    console.log(this.props);
+    // this.props.dispatchFetchTopMovies()
+    this.fetchGenre();
+
   }
 
-  // public onPingClick = () => {
-  //   this.props.dispatchFetchTopMovies();
-  // }
+  public fetchGenre = async () => {
+    let result = await ApiService.fetchGenres();
+    this.setState({
+      genres: result.data
+    })
+  }
 
   public render(): JSX.Element {
 
@@ -41,19 +52,19 @@ class Main extends Component<IMainProps> {
       <div className="app-container">
         <Header />
 
-        <Routes>
-          <Route path="/" element={ <Home movies={this.props.data}  /> } />
-          <Route path="movies" element={ <Listing/> } />
-          <Route path="movies/:id" element={ <MovieDetail/> } />
-        </Routes>
+          <Routes>
+            <Route path="/" element={ <Home dispatchFetchTopMovies={this.props.dispatchFetchTopMovies} movies={this.props.top || []}  /> } />
+            <Route path="movies" element={ <Listing/> } />
+            <Route path="movies/:id" element={ <MovieDetail  genres={this.state.genres || []} /> } />
+          </Routes>
 
-        {/* <div className="content">
-          <div style={{ textAlign: 'center' }}>
-            <button className="pure-button" type="button" onClick={this.onPingClick}>PING</button>
-            <p>{this.props.isLoading ? 'LOADING...' : null}</p>
-            <p>{this.props.message}</p>
-          </div>
-        </div> */}
+          {/* <div className="content">
+            <div style={{ textAlign: 'center' }}>
+              <button className="pure-button" type="button" onClick={this.onPingClick}>PING</button>
+              <p>{this.props.isLoading ? 'LOADING...' : null}</p>
+              <p>{this.props.message}</p>
+            </div>
+          </div> */}
 
         <footer>
           <div className="container-fluid">
@@ -107,7 +118,7 @@ const mapStateToProps: MapStateToProps<IMainProps, any, IAppState> = (state: IAp
   return {
     isLoading: state.isLoading,
     message: state.message,
-    data: state.data,
+    top: state.data,
   };
 };
 
@@ -120,4 +131,4 @@ const mapDispatchToProps = (dispatch: any): ActionCreatorsMapObject<IAction> => 
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

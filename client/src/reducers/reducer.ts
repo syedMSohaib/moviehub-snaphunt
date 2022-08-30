@@ -26,10 +26,7 @@ const reducer = (state: IAppState = defaultState, action: IAction): IAppState =>
   const dispatchFail = (): void => {
     store.dispatch(MovieActionCreators.testApiFail());
   };
-  
-  console.log(action);
 
-  
 
   switch (action.type) {
 
@@ -49,7 +46,17 @@ const reducer = (state: IAppState = defaultState, action: IAction): IAppState =>
           message: null,
           data: null,
           isLoading: true
-      };
+    };
+
+    case ActionType.FetchMovie:
+        ApiService.fetchMovie(action.payload.id).then(dispatchFinish).catch(dispatchFail);
+        return {
+          ...state,
+          message: null,
+          data: null,
+          isLoading: true
+    };
+
 
     case ActionType.ApiTestStart:
       ApiService.testApi().then(dispatchFinish).catch(dispatchFail);
